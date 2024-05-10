@@ -1,0 +1,76 @@
+﻿ @model BlogApp.ViewModels.BlogHistoryViewModel
+@{
+    ViewBag.Title = "Blog Posts History";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h2>@Model.BlogPost.Title</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>@Html.Raw(Model.BlogPost.Body)</p>
+                <p><small class="text-muted">Author: @Model.BlogPost.Author.UserName</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <!-- Placeholder for images or other additional content -->
+    </div>
+</div>
+<hr />
+<h3>Edited Histories</h3>
+<table class="table table-condensed table-bordered" id="blogList">
+    <thead>
+        <tr>
+            <th>
+                Original Title
+            </th>
+            <th>
+               Original Body
+            </th>
+            <th>
+               Original Timestamp
+            </th>
+            <th>
+                Edited Title
+            </th>
+            <th>
+                Edited Body
+            </th>
+            <th>
+                Edited Timestamp
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.BlogPostEditHistory)
+        {
+            <tr>
+                <td>
+                    @item.OriginalTitle
+                </td>
+                <td>
+                    @item.OriginalBody
+                </td>
+                <td>
+                   @item.OriginalTimestamp
+                </td>
+                <td>
+                    @item.EditedTitle
+                </td>
+                <td>
+                    @item.EditedBody
+                </td>
+                <td>
+                    @item.EditedTimestamp
+                </td> 
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $("#blogList").DataTable({});
+</script>

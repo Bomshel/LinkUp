@@ -1,0 +1,270 @@
+﻿@model IEnumerable<BlogApp.Models.BlogPost>
+
+@{
+    ViewBag.Title = "Blog Posts";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .containerIndex {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-content {
+            flex: 3;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .blog-post {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+            .blog-post:hover {
+                transform: translateY(-5px);
+            }
+
+            .blog-post img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            .blog-post h2 {
+                font-size: 18px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                color: #343a40;
+                padding: 10px;
+                background-color: #f8f9fa;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .blog-post p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 15px;
+                padding: 0 10px;
+            }
+
+        .read-more {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 16px; /* Increased font size */
+        }
+
+            .read-more:hover {
+                color: #0056b3;
+            }
+
+        .sidebar h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #343a40;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .sidebar ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #343a40;
+            transition: color 0.3s;
+        }
+
+            .sidebar a:hover {
+                color: #0056b3;
+            }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+</head>
+<body>
+    <div class="containerIndex">
+        <div class="blog-content">
+            <form method="get" action="@Url.Action("Index")">
+                <div class="form-group">
+                    <input type="text" name="searchString" value="@ViewBag.SearchString" placeholder="Search blogs..." class="form-control" />
+                </div>
+                <div class="form-group">
+                    <select name="sortBy" class="form-control">
+                        <option value="">Sort By</option>
+                        @if (ViewBag.SortBy == "title_asc")
+                        {
+                            <option value="title_asc" selected>Title (A-Z)</option>
+                        }
+                        else
+                        {
+                            <option value="title_asc">Title (A-Z)</option>
+                        }
+                        @if (ViewBag.SortBy == "title_desc")
+                        {
+                            <option value="title_desc" selected>Title (Z-A)</option>
+                        }
+                        else
+                        {
+                            <option value="title_desc">Title (Z-A)</option>
+                        }
+                        @if (ViewBag.SortBy == "popularity_asc")
+                        {
+                            <option value="popularity_asc" selected>Popularity (Low to High)</option>
+                        }
+                        else
+                        {
+                            <option value="popularity_asc">Popularity (Low to High)</option>
+                        }
+                        @if (ViewBag.SortBy == "popularity_desc")
+                        {
+                            <option value="popularity_desc" selected>Popularity (High to Low)</option>
+                        }
+                        else
+                        {
+                            <option value="popularity_desc">Popularity (High to Low)</option>
+                        }
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            <hr />
+
+            @{
+                int pageNumber = ViewBag.PageNumber;
+                int pageSize = ViewBag.PageSize;
+                double totalPages = ViewBag.TotalPages;
+            }
+
+            <div class="blog-posts">
+
+                @for (int i = 0; i < pageNumber; i++)
+                {
+                    @foreach (var blogPost in Model.Where(x => !x.IsDeleted).Skip(i * pageSize).Take(pageSize))
+                    {
+                        int upvoteWeightage = 2;
+                        int downvoteWeightage = -1;
+                        int commentWeightage = 1;
+
+                        int upvotes = blogPost.Reactions.Count(r => r.IsUpvote);
+                        int downvotes = blogPost.Reactions.Count(r => !r.IsUpvote);
+                        int commentsCount = blogPost.Comments.Count;
+
+                        int popularityScore = (upvoteWeightage * upvotes) + (downvoteWeightage * downvotes) + (commentWeightage * commentsCount);
+                        <div class="blog-post">
+                            <img src="@blogPost.ImagePaths" alt="Blog Image">
+                            <h2>@blogPost.Title</h2>
+                            <p>@Html.Raw(blogPost.Body.Length > 200 ? $"{blogPost.Body.Substring(0, 200)}..." : blogPost.Body)</p>
+                            <p class="card-text"><small class="text-muted">Author: @blogPost.Author.UserName</small></p>
+                            <p class="card-text"><small class="text-muted">Posted on: @blogPost.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
+                            <p class="card-text"><small class="text-muted">Popularity Score: @popularityScore</small></p>
+                            <a href="@Url.Action("ReadBlog","Home", new { id = blogPost.BlogPostId })" class="read-more ">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    }
+                }
+            </div>
+            @if (totalPages > 1)
+            {
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item @(pageNumber == 1 ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = pageNumber - 1, sortBy = ViewBag.SortBy, searchString = ViewBag.SearchString })" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(pageNumber == i ? "active" : "")"><a class="page-link" href="@Url.Action("Index", new { page = i, sortBy = ViewBag.SortBy, searchString = ViewBag.SearchString })">@i</a></li>
+                        }
+                        <li class="page-item @(pageNumber == totalPages ? "disabled" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = pageNumber + 1, sortBy = ViewBag.SortBy, searchString = ViewBag.SearchString })" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            }
+        </div>
+        <div class="sidebar">
+            <h3>Recent Posts</h3>
+            <ul>
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var blog in Model.Take(10))
+                    {
+                        <li><a href="@Url.Action("ReadBlog","Home", new { id = blog.BlogPostId })">@((blog.Title.Length > 30) ? (blog.Title.Substring(0, 30) + "...") : blog.Title)</a></li>
+                    }
+                }
+                else
+                {
+                    <p>No Posts</p>
+                }
+
+            </ul>
+
+            <h3>Popular Blogs</h3>
+            <ul>
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var blog in Model.OrderByDescending(b => b.Reactions.Count() + b.Comments.Count()).Take(10))
+                    {
+                        <li>
+                            <a href="@Url.Action("ReadBlog","Home", new { id = blog.BlogPostId })">
+                                @(
+                                    (blog.Title.Length > 30) ? (blog.Title.Substring(0, 30) + "...") : blog.Title
+                                    )
+                            </a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <p>No Posts</p>
+                }
+            </ul>
+
+        </div>
+    </div>
+</body>
+</html>

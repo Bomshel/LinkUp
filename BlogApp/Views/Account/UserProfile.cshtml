@@ -1,0 +1,97 @@
+﻿@model BlogApp.ViewModels.UserViewModel
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-fluid rounded-circle mb-3" src="/AdminLayout/dist/img/avatar.png" alt="User profile picture" style="width: 150px;">
+                    <h3 class="mb-3">@User.Identity.Name</h3>
+                    <p class="text-muted"> Blogs: @Model.BlogPost.Count</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card bg-light">
+            <div class="card-header">
+                <h3 class="card-title">Update Account</h3>
+            </div>
+            <div class="card-body">
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="inputName">Username</label>
+                        <input type="text" class="form-control" id="inputName" placeholder="Username" value="@Model.ApplicationUser.UserName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="@Model.ApplicationUser.Email">
+                    </div>
+                    <div class="text-right">
+                        <button type="button" id="submitBtn" class="btn btn-danger">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card bg-light mt-3">
+            <div class="card-body">
+                <div class="text-center">
+                    <a href="/Account/ChangePassword" class="btn btn-primary btn-block"><b>Change Password</b></a>
+                    <a href="/Account/DeleteProfile" class="btn btn-danger btn-block"><b>Delete Account</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function () {
+            var userName = $('#inputName').val();
+            var email = $('#inputEmail').val();
+
+            $.ajax({
+                url: '/Account/UpdateProfile',
+                type: 'POST',
+                data: {
+                    UserName: userName,
+                    Email: email
+                },
+                success: function (response) {
+                    // Handle success response
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+        });
+
+        $('#changePasswordBtn').click(function () {
+            window.location.href = '/Account/ChangePassword';
+        });
+
+        $('#deleteProfileBtn').click(function () {
+            if (confirm('Are you sure you want to delete your profile?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteProfile", "Account")',
+                    type: 'POST',
+                    success: function (response) {
+                        alert(response);
+                        window.location = "/Home/Index";
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        // Handle error response
+                    }
+                });
+            }
+        });
+    });
+</script>

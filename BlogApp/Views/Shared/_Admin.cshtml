@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/AdminLayout/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/AdminLayout/dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="/AdminLayout/plugins/iCheck/flat/blue.css">
+    <link rel="stylesheet" href="/AdminLayout/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <link rel="stylesheet" href="/AdminLayout/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="/AdminLayout/plugins/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="/AdminLayout/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link href="~/AdminLayout/DataTables/datatables.min.css" rel="stylesheet">
+    <style>
+
+        .logo-lg {
+            position: relative;
+            z-index: 999; /* Ensure the content is visible above other elements */
+        }
+
+        .admin-panel {
+            color: #000; /* Change the color for Admin Panel */
+        }
+
+        .blogger-panel {
+            color: #000;
+        }
+
+        .sidebar {
+            background-color: rgba(0, 0, 0, 0.5); /* Transparent background color */
+            color: #fff; /* Change text color */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+        }
+
+        .sidebar-menu {
+            padding: 20px;
+        }
+
+            .sidebar-menu a {
+                color: #fff; /* Change link text color */
+                padding: 10px 15px;
+                display: block;
+                transition: all 0.3s ease;
+            }
+
+                .sidebar-menu a:hover {
+                    background-color: #34495e; /* Change background color on hover */
+                    color: #fff; /* Change text color on hover */
+                }
+
+            .sidebar-menu .header {
+                padding: 10px 15px;
+                font-size: 18px;
+                font-weight: bold;
+                color: #fff; /* Change header text color */
+            }
+
+            .sidebar-menu .treeview-menu {
+                display: none;
+            }
+
+            .sidebar-menu .treeview:hover .treeview-menu {
+                display: block;
+            }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+    <div class="wrapper">
+        <header class="main-header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+                <a href="~/Home/Dashboard" class="navbar-brand">
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <span class="logo-lg admin-panel"><b>Welcome</b> Admin</span>
+                    }
+                    @if (User.IsInRole("Blogger"))
+                    {
+                        <span class="logo-lg blogger-panel"><b>Blogger</b> Panel</span>
+                    }
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown notifications-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="label label-warning" id="notificationCount">0</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="header">You have <span id="notificationCountHeader">0</span> notifications</li>
+                                        <li>
+                                            <ul class="menu" id="notificationList">
+                                                <!-- Notifications will be injected here -->
+                                            </ul>
+                                        </li>
+                                        <li class="footer"><a href="#">View all</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <li class="dropdown user user-menu">
+                            <form id="logoutForm" asp-controller="Account" asp-action="Logout" asp-area="" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-primary">Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <!-- User panel content -->
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="/Account/UserProfile"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+                    @if (User.IsInRole("Blogger"))
+                    {
+                        <li><a href="/Home" target="_blank"><i class="fa fa-eye"></i> <span>View Blogs</span></a></li>
+                        <li><a href="/BlogPosts/Create"><i class="fa fa-gear"></i> Post Blog</a></li>
+                        <li><a href="/BlogPosts/Index"><i class="fa fa-gear"></i> Blog List</a></li>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-gears"></i> <span>User Management</span> <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Account/RegisterUser"><i class="fa fa-gear"></i> Add Admin</a></li>
+                                <li><a href="/Account/UserList"><i class="fa fa-gear"></i> Manage User</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </section>
+        </aside>
+
+        <div class="content-wrapper">
+            <section class="content">
+                @RenderBody()
+                @RenderSection("scripts", required: false)
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 0.1.0
+            </div>
+            <strong>Copyright &copy; 2024 <a href="#">LinkUp</a> All rights reserved.</strong>
+        </footer>
+
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="~/AdminLayout/Scripts/jquery.toaster.js"></script>
+    <script src="~/AdminLayout/DataTables/datatables.min.js"></script>
+    <script src="~/AdminLayout/Scripts/bootstrap.min.js"></script>
+    <script src="~/AdminLayout/plugins/ckeditor/ckeditor.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="/AdminLayout/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/AdminLayout/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="/AdminLayout/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="/AdminLayout/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="/AdminLayout/plugins/fastclick/fastclick.min.js"></script>
+    <script src="/AdminLayout/dist/js/app.min.js"></script>
+
+    <script>
+        function logout() {
+            document.getElementById("logoutForm").submit();
+        }
+        function fetchNotifications() {
+            debugger;
+            $.ajax({
+                url: '/Home/GetNotifications', // Replace with your endpoint
+                type: 'GET',
+                success: function (data) {
+                    updateNotificationCount(data.length);
+                    populateNotifications(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching notifications:', error);
+                }
+            });
+        }
+
+        // Function to update notification count
+        function updateNotificationCount(count) {
+            $('#notificationCount').text(count);
+            $('#notificationCountHeader').text(count);
+        }
+
+        // Function to generate HTML for a single notification
+        function generateNotificationHTML(notification) {
+            var icon = notification.type === 'Reaction' ? 'fa-heart' : 'fa-comment';
+            var text = notification.message;
+            return <li class="notification-item" data - blog - id=${ notification.blogId } data - notification - id=${ notification.notificationId }> <a href="#" > <i class="fa ${icon} text-info" > </i> ${text}</a > </li>;
+        }
+
+        // Function to populate notifications into the dropdown menu
+        function populateNotifications(notifications) {
+            var notificationList = $('#notificationList');
+            var html = '';
+
+            notifications.forEach(function (notification) {
+                html += generateNotificationHTML(notification);
+            });
+
+            notificationList.html(html);
+        }
+
+        // Call the function to fetch notifications when the page loads
+        fetchNotifications();
+
+        $(document).on('click', '.notification-item', function () {
+            var notificationId = $(this).data('notification-id');
+            var blogId = $(this).data('blog-id');
+            $.ajax({
+                url: '/Home/MarkAsRead',
+                type: 'POST',
+                data: { id: notificationId },
+                success: function () {
+                    // Remove the notification from the list
+                    $(this).closest('li').remove();
+                    // Update the notification count
+                    var notificationCount = parseInt($('.label-warning').text());
+                    $('.label-warning').text(notificationCount - 1);
+                    window.open('/Home/ReadBlog?id=' + blogId, '_blank');
+
+                },
+                error: function () {
+                    alert('An error occurred while marking the notification as read.');
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>

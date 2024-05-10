@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BlogApp.Models.BlogPost>
+
+@{
+    ViewBag.Title = "Blog Posts";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<style>
+    /* Custom CSS styles */
+    .table th,
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-4">My Blogs</h2>
+            <hr />
+
+            <table class="table table-bordered table-striped" id="blogList">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Posted At</th>
+                        <th>Deleted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/BlogPosts/Details?id=@item.BlogPostId">@item.Title</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedAt)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsDeleted)
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="/BlogPosts/Edit?id=@item.BlogPostId" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="/BlogPosts/Delete?id=@item.BlogPostId" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="/BlogPosts/History?id=@item.BlogPostId" class="btn btn-sm btn-secondary">History</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#blogList").DataTable();
+        });
+    </script>
+}
