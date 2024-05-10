@@ -1,0 +1,255 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\shared\\_admin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\shared\\_admin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\account\\registeruser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\account\\registeruser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\home\\readblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\home\\readblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\account\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\account\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\account\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\account\\userlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\blogposts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\blogposts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\models\\blogpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\models\\blogpost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|c:\\users\\acer\\onedrive\\desktop\\blogapp\\blogapp\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{043225FC-EE84-426A-808F-58694EC40075}|BlogApp\\BlogApp.csproj|solutionrelative:blogapp\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RegisterUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\RegisterUser.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Account\\RegisterUser.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\RegisterUser.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Account\\RegisterUser.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-10T00:06:29.431Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Admin.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Shared\\_Admin.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Shared\\_Admin.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Shared\\_Admin.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Shared\\_Admin.cshtml",
+              "ViewState": "AQIAALQAAAAAAAAAAAAkwNwAAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T18:08:41.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "BlogApp\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "BlogApp\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T23:14:25.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserList.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\UserList.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Account\\UserList.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\UserList.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Account\\UserList.cshtml",
+              "ViewState": "AQIAACoAAAAAAAAAAAAkwEgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T22:48:19.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReadBlog.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\ReadBlog.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Home\\ReadBlog.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\ReadBlog.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Home\\ReadBlog.cshtml",
+              "ViewState": "AQIAACYAAAAAAAAAAAAkwEgAAAB2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T22:35:52.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ChangePassword.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\ChangePassword.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Account\\ChangePassword.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\ChangePassword.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Account\\ChangePassword.cshtml",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAkwC0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T21:59:46.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACgAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T18:38:19.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\BlogPosts\\Index.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\BlogPosts\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\BlogPosts\\Index.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\BlogPosts\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T22:24:05.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Program.cs",
+              "RelativeDocumentMoniker": "BlogApp\\Program.cs",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Program.cs",
+              "RelativeToolTip": "BlogApp\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T18:47:30.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Account\\Login.cshtml",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAuwDcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T16:22:04.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAA8AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T16:37:18.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BlogPost.cs",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Models\\BlogPost.cs",
+              "RelativeDocumentMoniker": "BlogApp\\Models\\BlogPost.cs",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Models\\BlogPost.cs",
+              "RelativeToolTip": "BlogApp\\Models\\BlogPost.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAUwBEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T16:50:31.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "BlogApp\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "BlogApp\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-09T16:30:40.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Startup.cs",
+              "RelativeDocumentMoniker": "BlogApp\\Startup.cs",
+              "ToolTip": "C:\\Users\\Acer\\OneDrive\\Desktop\\BlogApp\\BlogApp\\Startup.cs",
+              "RelativeToolTip": "BlogApp\\Startup.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAgwD0AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-09T16:15:52.254Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

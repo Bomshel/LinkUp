@@ -1,0 +1,67 @@
+﻿@model BlogApp.ViewModels.RegisterViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            backdrop-filter: blur(8px); /* Adjust the blur intensity */
+            background-color: rgba(255, 255, 255, 0.5); /* Adjust the transparency level */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid" style="background-image: url('../../BlogImages/bag.jpg'); background-size: cover; height: 100vh;">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-12 bg-white p-5 rounded form-container">
+                <h2 class="text-center mb-4">Register</h2>
+                <form asp-controller="Account" asp-action="Register" method="post" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-5"></div>
+
+                    <div class="mb-3">
+                        <label for="Username" class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" id="Username" required>
+                        <div class="invalid-feedback">Please provide a username.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" id="Email" required>
+                        <div class="invalid-feedback">Please provide a valid email address.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" id="Password" required>
+                        <div class="invalid-feedback">Please provide a password.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" id="ConfirmPassword" required>
+                        <div class="invalid-feedback">Please confirm your password.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="UserRole" class="form-label">You're?</label>
+                        <select id="UserRole" class="form-select" asp-for="Role" required>
+                            <option value="Blogger">Blogger</option>
+                            <option value="Surfer">Surfer</option>
+                        </select>
+                        <div class="invalid-feedback">Please select your role.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+﻿@model BlogApp.Models.BlogPost
+@{
+    ViewBag.Title = "Read Blog";
+    int upvoteWeightage = 2;
+    int downvoteWeightage = -1;
+    int commentWeightage = 1;
+
+    int upvotes = Model.Reactions.Count(r => r.IsUpvote);
+    int downvotes = Model.Reactions.Count(r => !r.IsUpvote);
+    int commentsCount = Model.Comments.Count;
+
+    int popularityScore = (upvoteWeightage * upvotes) + (downvoteWeightage * downvotes) + (commentWeightage * commentsCount);
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<div class="col-md-12">
+    <div class="card mb-6">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <img src="@Model.ImagePaths" class="img-fluid" alt="Blog Image">
+            <p class="card-text">
+                @Html.Raw(Model.Body)
+            </p>
+            <p class="card-text"><small class="text-muted">Author: @Model.Author.UserName</small></p>
+            <p class="card-text"><small class="text-muted">Created: @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
+            <p class="card-text"><small class="text-muted">Popularity Score: @popularityScore</small></p>
+
+            <!-- Reaction Buttons -->
+            <!-- Reaction Buttons -->
+            <div class="reaction-buttons">
+                <button class="btn btn-outline-primary upvote-btn" data-post-id="@Model.BlogPostId"><i class="fa fa-heart"></i>  (<span id="upVote">@Model.Reactions.Where(x => x.IsUpvote).Count()</span>)</button>
+                <button class="btn btn-outline-danger downvote-btn" data-post-id="@Model.BlogPostId"><i class="fa fa-thumbs-down"></i>  (<span id="downVote">@Model.Reactions.Where(x => x.IsUpvote == false).Count()</span>)</button>
+            </div>
+            <!-- Comment Section -->
+            <div class="comment-section">
+
+                <ul class="list-group">
+                    @if (Model.Comments != null)
+                    {
+                        if (Model.Comments.Count > 0)
+                        {
+                            <h6>Comments</h6>
+                            foreach (var comment in Model.Comments.Where(x => !x.IsDeleted))
+                            {
+                                <li class="list-group-item comment-content">
+                                    <span class="comment-span">@comment.Content</span>
+                                    <div>
+                                        <small class="text-muted">By: @comment.Author.UserName</small>
+                                        @if (User.Identity.IsAuthenticated && comment.AuthorId == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+                                        {
+                                            <i class="fa fa-pencil text-primary edit-comment-btn" style="cursor:pointer" data-toggle="modal" data-target="#editCommentModal" data-comment-id="@comment.CommentId"></i>
+                                            <i class="fa fa-trash text-danger delete-comment-btn" style="cursor:pointer" data-comment-id="@comment.CommentId"></i>
+                                        }
+                                    </div>
+                                    <div class="comment-reaction">
+                                        <!-- Reaction icons -->
+                                        <i class="fa fa-thumbs-up text-success upvote-btn-comment" style="cursor:pointer" data-post-id="@comment.CommentId"></i> <span class="commentUpVote">@comment.CommentReaction.Where(x => x.IsUpvote).Count()</span>
+                                        <i class="fa fa-thumbs-down text-danger downvote-btn-comment" style="cursor:pointer" data-post-id="@comment.CommentId"></i> <span class="commentdownVote">@comment.CommentReaction.Where(x => !x.IsUpvote).Count()</span>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                           <span>No comments</span>
+                        }
+                    }
+
+                </ul>
+                <br />
+                <!-- Comment Form -->
+                <form id="commentForm" asp-controller="Post" asp-action="AddComment" method="post">
+                    <div class="form-group">
+                        <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment", required></textarea>
+                        <input type="hidden" name="id" value="@Model.BlogPostId" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Comment Modal -->
+<div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCommentModalLabel">Edit Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea id="editCommentTextarea" class="form-control" rows="4"></textarea>
+                <input type="hidden" id="editCommentId" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveEditedCommentBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    var isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower(); // Pass authentication status to JavaScript
+
+    $(document).ready(function () {
+        $('.upvote-btn, .downvote-btn').click(function () {
+            if (!isAuthenticated) {
+                alert('Please log in to vote.');
+                return;
+            }
+
+            var postId = $(this).data('post-id');
+            var isUpvote = $(this).hasClass('upvote-btn');
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddReaction",
+                data: { id: postId, isUpvote: isUpvote },
+                success: function (response) {
+                    if (response === "success") {
+                        // Update UI, e.g., increase upvote/downvote count
+                        var countElement = isUpvote ? $('#upVote') : $('#downVote');
+                        var count = parseInt(countElement.text());
+                        countElement.text(count + 1);
+                    } else {
+                        alert('Failed to add reaction.');
+                    }
+                },
+                error: function () {
+                    alert('Failed to add reaction.');
+                }
+            });
+        });
+
+        $('#commentForm').submit(function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            if (!isAuthenticated) {
+                alert('Please log in to comment.');
+                return;
+            }
+
+            var formData = $(this).serialize(); // Serialize form data
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddComment",
+                data: formData,
+                success: function (response) {
+                    alert('Comment added successfully.');
+                    location.reload();
+                },
+                error: function () {
+                    alert('Failed to add comment.');
+                }
+            });
+        });
+
+        $('.upvote-btn-comment, .downvote-btn-comment').click(function () {
+            if (!isAuthenticated) {
+                alert('Please log in to vote.');
+                return;
+            }
+
+            var postId = $(this).data('post-id');
+            var isUpvote = $(this).hasClass('upvote-btn-comment');
+            var countElement = isUpvote ? $(this).siblings('.commentUpVote') : $(this).siblings('.commentdownVote');
+
+            var count = parseInt(countElement.text());
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddCommentReaction",
+                data: { id: postId, isUpvote: isUpvote },
+                success: function (response) {
+                    if (response === "success") {
+                        countElement.text(count + 1);
+                    } else {
+                        alert('Failed to add reaction.');
+                    }
+                },
+                error: function () {
+                    alert('Failed to add reaction.');
+                }
+            });
+        });
+
+        // Edit Comment
+
+
+    });
+
+    $(document).on("click", ".edit-comment-btn", function () {
+        debugger;
+        var commentId = $(this).data("comment-id");
+        var commentContent = $(this).closest(".comment-content").find(".comment-span").text().trim();
+        $("#editCommentId").val(commentId);
+        $("#editCommentTextarea").val(commentContent);
+    });
+
+    $("#saveEditedCommentBtn").click(function () {
+        var commentId = $("#editCommentId").val();
+        var editedContent = $("#editCommentTextarea").val();
+
+        $.ajax({
+            url: "/Home/UpdateComment",
+            method: "POST",
+            data: {
+                commentId: commentId,
+                editedContent: editedContent
+            },
+            success: function (data) {
+                if (data.success) {
+                    // Update the comment content in the UI
+                    $("#editCommentModal").modal("hide");
+                    location.reload();
+                    // Refresh the page or update the comment content in the UI
+                } else {
+                    alert("Failed to update comment.");
+                }
+            },
+            error: function () {
+                alert("Failed to update comment.");
+            }
+        });
+    });
+
+    $('.delete-comment-btn').click(function () {
+        var commentId = $(this).data('comment-id');
+        var commentContent = $(this).data('comment-content');
+        var deleteConfirmation = confirm('Are you sure you want to delete this comment?\n\n' + commentContent);
+
+        if (deleteConfirmation) {
+            $.ajax({
+                url: '/Home/DeleteComment',
+                method: 'POST',
+                data: { commentId: commentId },
+                success: function (response) {
+                    if (response.success) {
+                        // Remove the comment from the UI
+                        $('#comment-' + commentId).remove();
+                        alert('Comment deleted successfully.');
+                    } else {
+                        alert('Failed to delete the comment.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('Failed to delete the comment: ' + error);
+                }
+            });
+        }
+    });
+
+</script>

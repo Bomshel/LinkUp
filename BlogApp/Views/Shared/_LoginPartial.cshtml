@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-controller="Account" asp-action="Logout" asp-area="" method="post" id="logoutForm" class="navbar-right">
+        <button type="submit" class="nav-link btn btn-link">Log off</button>
+        @Html.AntiForgeryToken()
+    </form>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            <a class="nav-link">Hello @User.Identity.Name !</a>
+        </li>
+    
+    @if (User.IsInRole("Administrator"))
+        {
+            <li>@Html.ActionLink("Admin Dashboard", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        }
+        @if (User.IsInRole("Blogger"))
+        {
+            <li>@Html.ActionLink("Blogger Dashboard", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+        }
+        </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    </ul>
+}

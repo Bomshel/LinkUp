@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BlogApp.Models.ApplicationUser>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewBag.Title = "User Manager";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>User Manager</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered" id="userList">
+        <thead class="thead-dark">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @foreach (var role in await UserManager.GetRolesAsync(user))
+                        {
+                            <span class="badge badge-secondary">@role</span>
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary reset-password-btn" data-user-id="@user.Id">Reset Password</button>
+                        <button class="btn btn-sm btn-danger delete-user-btn" data-user-id="@user.Id">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#userList').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true
+            });
+
+            var message = $("#Message").val();
+            if (message != "") {
+                toastr.success(message);
+            }
+
+            $('.reset-password-btn').click(function () {
+                var userId = $(this).data('user-id');
+                // Implement reset password logic
+            });
+
+            $('.delete-user-btn').click(function () {
+                var userId = $(this).data('user-id');
+                // Implement delete user logic
+            });
+        });
+    </script>
+}

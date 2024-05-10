@@ -1,0 +1,191 @@
+﻿@model IEnumerable<BlogApp.Models.BlogPost>
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    var activityByMonth = Model
+        .Select(bp => new
+        {
+            Month = bp.CreatedAt.ToString("MMM-yyyy"),
+            CommentCount = bp.Comments.Count,
+            ReactionCount = bp.Reactions.Count
+        })
+        .GroupBy(x => x.Month)
+        .Select(g => new BlogApp.ViewModels.BlogActivityByMonth
+                {
+                    Month = g.Key,
+                    CommentCount = g.Sum(x => x.CommentCount),
+                    ReactionCount = g.Sum(x => x.ReactionCount)
+                })
+        .OrderBy(x => x.Month)
+        .ToList();
+}
+
+<h4>Welcome, @User.Identity.Name</h4>
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-info">
+            <div class="info-box-content">
+                <span class="info-box-text"> Blogs</span>
+                <span class="info-box-number">@Model.Count()</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-info">
+            <div class="info-box-content">
+                <span class="info-box-text">Likes</span>
+                <span class="info-box-number">@Model.SelectMany(x => x.Reactions).Count(r => r.IsUpvote)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-info">
+            <div class="info-box-content">
+                <span class="info-box-text">Comments</span>
+                <span class="info-box-number">@Model.SelectMany(x => x.Comments).Count()</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        @if (User.IsInRole("Administrator"))
+        {
+            <h3 class="box-title">Monthly Report</h3>
+        }
+        @if (User.IsInRole("Blogger"))
+        {
+            <h3 class="box-title">Monthly Report of Blogs</h3>
+        }
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Comments</th>
+                        <th>Reactions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in activityByMonth)
+                    {
+                        <tr>
+                            <td>@item.Month</td>
+                            <td>@item.CommentCount</td>
+                            <td>@item.ReactionCount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        @if (User.IsInRole("Administrator"))
+        {
+            <h3 class="box-title">Overall Blog Report</h3>
+        }
+        @if (User.IsInRole("Blogger"))
+        {
+            <h3 class="box-title">My Blogs</h3>
+        }
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+
+    <div class="box-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th> Title</th>
+                        <th>Comments</th>
+                        <th>Reactions</th>
+                        <th>Likes</th>
+                        <th>Dis-Likes</th>
+                        <th>Popularity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var blog in Model)
+                    {
+                        int upvoteWeightage = 2;
+                        int downvoteWeightage = -1;
+                        int commentWeightage = 1;
+
+                        int upvotes = blog.Reactions.Count(r => r.IsUpvote);
+                        int downvotes = blog.Reactions.Count(r => !r.IsUpvote);
+                        int commentsCount = blog.Comments.Count;
+
+                        int popularityScore = (upvoteWeightage * upvotes) + (downvoteWeightage * downvotes) + (commentWeightage * commentsCount);
+
+                        <tr>
+                            <td>@blog.Title</td>
+                            <td>@commentsCount</td>
+                            <td>@blog.Reactions.Count</td>
+                            <td>@upvotes</td>
+                            <td>@downvotes</td>
+                            <td>@popularityScore</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (User.IsInRole("Administrator"))
+{
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Top 10 Bloggers</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Blogger</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bloggerGroup in Model.GroupBy(b => b.Author.UserName)
+                       .Select(group => new
+                       {
+                           UserName = group.Key,
+                           TotalScore = group.Sum(b => (2 * b.Reactions.Count(r => r.IsUpvote)) - b.Reactions.Count(r => !r.IsUpvote) + b.Comments.Count)
+                       })
+                       .OrderByDescending(g => g.TotalScore)
+                       .Take(10))
+                        {
+                            <tr>
+                                <td>@bloggerGroup.UserName</td>
+                                <td>@bloggerGroup.TotalScore</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,72 @@
+﻿@model BlogApp.ViewModels.BlogDetailsCommentHistoryViewModel
+
+@{
+    ViewBag.Title = "Blog Post Details";
+    Layout = "~/Views/Shared/_Admin.cshtml"; 
+}
+
+<h2></h2>
+
+<div class="row">
+    <div class="col-md-12 box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">@Model.BlogPost.Title</h3>
+        </div>
+        <div class="">
+            <div class="card-body ">
+                <img src="@Model.BlogPost.ImagePaths" class="img-fluid" height="200" width="200" alt="Blog Image">
+                <p>@Html.Raw(Model.BlogPost.Body)</p>
+                <p><small class="text-muted">Author: @Model.BlogPost.Author.UserName</small></p>
+                <p><small class="text-muted">Created: @Model.BlogPost.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
+                @if (Model.BlogPost.UpdatedAt.HasValue)
+                {
+                    <p><small class="text-muted">Updated: @Model.BlogPost.UpdatedAt.Value.ToString("yyyy-MM-dd HH:mm")</small></p>
+                } 
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <!-- Placeholder for images or other additional content -->
+    </div>
+</div>
+
+<h3>Comments</h3>
+@if (Model.BlogPost.Comments.Any())
+{
+    foreach (var comment in Model.BlogPost.Comments)
+    {
+        <div class="box box-primary">
+            <div class="card-body">
+                <p>@comment.Content</p>
+                <p><small class="text-muted">Author: @comment.Author.UserName</small></p>
+                <p><small class="text-muted">Posted: @comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></p>
+                <h5><u>Comment History</u></h5>
+                <table class="table" width="100%">
+                    <tr>
+                        <th>
+                            Original Comment
+                        </th>
+                        <th>
+                            Edited Comment
+                        </th>
+                    </tr>
+                    @foreach(var comm in Model.CommentEditHistory.Where(x=>x.CommentId==comment.CommentId)){
+                        <tr>
+                            <td>
+                                @comm.OriginalContent
+                            </td>
+                            <td>
+                                @comm.EditedContent
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No comments yet.</p>
+}
+ 
